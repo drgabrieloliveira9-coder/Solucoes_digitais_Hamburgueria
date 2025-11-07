@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -30,37 +29,147 @@
             color: var(--text-white);
             overflow-x: hidden;
             line-height: 1.6;
-            background: #0a0a0a;
+            background: #000000;
         }
 
-        /* Video Background */
-        .video-background {
+        /* Animated Background - Inspirado em AnimatedBackground.tsx */
+        .animated-background {
             position: fixed;
             inset: 0;
             z-index: -1;
             overflow: hidden;
+            background: #000000;
         }
 
-        .video-background video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            opacity: 0.5;
-        }
-
-        .video-overlay {
+        /* Video Background */
+        .bg-video {
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, 
-                rgba(0, 15, 40, 0.85) 0%,
-                rgba(15, 23, 42, 0.8) 50%,
-                rgba(30, 15, 60, 0.85) 100%);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+        }
+
+        /* Dark Overlay para melhorar contraste */
+        .bg-overlay-dark {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7), rgba(0, 50, 25, 0.6));
+        }
+
+        /* Gradiente base */
+        .bg-gradient-base {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.5), rgba(23, 23, 23, 0.4), rgba(0, 50, 25, 0.3));
+        }
+
+        /* Grade animada neon */
+        .bg-grid-container {
+            position: absolute;
+            inset: 0;
+            opacity: 0.25;
+        }
+
+        .bg-grid-small {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(37, 211, 102, 0.06) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(37, 211, 102, 0.06) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridScroll 20s linear infinite;
+        }
+
+        .bg-grid-large {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(37, 211, 102, 0.12) 2px, transparent 2px),
+                linear-gradient(to bottom, rgba(37, 211, 102, 0.12) 2px, transparent 2px);
+            background-size: 120px 120px;
+            animation: gridScrollSlow 40s linear infinite;
+        }
+
+        @keyframes gridScroll {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+
+        @keyframes gridScrollSlow {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(120px, 120px); }
+        }
+
+        /* Esferas neon flutuantes */
+        .neon-sphere {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+        }
+
+        .neon-sphere-1 {
+            top: 25%;
+            left: 25%;
+            width: 500px;
+            height: 500px;
+            background: rgba(0, 212, 255, 0.2);
+            animation: floatSlow 15s ease-in-out infinite;
+        }
+
+        .neon-sphere-2 {
+            bottom: 25%;
+            right: 25%;
+            width: 450px;
+            height: 450px;
+            background: rgba(0, 212, 255, 0.15);
+            animation: floatSlower 18s ease-in-out infinite;
+        }
+
+        .neon-sphere-3 {
+            top: 50%;
+            left: 50%;
+            width: 700px;
+            height: 700px;
+            background: rgba(0, 212, 255, 0.12);
+            transform: translate(-50%, -50%);
+            animation: pulseSlow 8s ease-in-out infinite;
+        }
+
+        .neon-sphere-4 {
+            top: 10%;
+            right: 10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(0, 212, 255, 0.1);
+            animation: floatMedium 12s ease-in-out infinite;
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-20px, -20px); }
+        }
+
+        @keyframes floatSlower {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, 20px); }
+        }
+
+        @keyframes floatMedium {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-15px, 15px); }
+        }
+
+        @keyframes pulseSlow {
+            0%, 100% { 
+                opacity: 0.12;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% { 
+                opacity: 0.25;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
         }
 
         /* Glass Morphism Effect */
@@ -649,12 +758,28 @@
     </style>
 </head>
 <body>
-    <!-- Video Background -->
-    <div class="video-background">
-        <video autoplay loop muted playsinline>
+    <!-- Animated Background -->
+    <div class="animated-background">
+        <!-- Video de fundo -->
+        <video class="bg-video" autoplay loop muted playsinline>
             <source src="https://cdn.pixabay.com/video/2022/10/10/134308-759254371_large.mp4" type="video/mp4">
         </video>
-        <div class="video-overlay"></div>
+        
+        <!-- Overlays -->
+        <div class="bg-overlay-dark"></div>
+        <div class="bg-gradient-base"></div>
+        
+        <!-- Grade animada -->
+        <div class="bg-grid-container">
+            <div class="bg-grid-small"></div>
+            <div class="bg-grid-large"></div>
+        </div>
+        
+        <!-- Esferas neon flutuantes -->
+        <div class="neon-sphere neon-sphere-1"></div>
+        <div class="neon-sphere neon-sphere-2"></div>
+        <div class="neon-sphere neon-sphere-3"></div>
+        <div class="neon-sphere neon-sphere-4"></div>
     </div>
 
     <!-- Menu Overlay -->
@@ -1091,6 +1216,36 @@
     </footer>
 
     <script>
+        // Forçar reprodução do vídeo em dispositivos móveis
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.querySelector('.bg-video');
+            
+            if (video) {
+                // Tentar reproduzir o vídeo
+                const playVideo = async () => {
+                    try {
+                        await video.play();
+                        console.log('Vídeo reproduzindo automaticamente');
+                    } catch (error) {
+                        console.log('Auto-play bloqueado, tentando após interação do usuário');
+                        
+                        // Função para reproduzir após interação
+                        const playOnInteraction = () => {
+                            video.play();
+                            document.removeEventListener('touchstart', playOnInteraction);
+                            document.removeEventListener('click', playOnInteraction);
+                        };
+                        
+                        // Adicionar listeners para mobile e desktop
+                        document.addEventListener('touchstart', playOnInteraction);
+                        document.addEventListener('click', playOnInteraction);
+                    }
+                };
+                
+                playVideo();
+            }
+        });
+
         // Mobile Menu
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
